@@ -13,17 +13,17 @@ from  .views import (home,
                      contact)
 
 urlpatterns=[
-    path('', home),
-    path('category', category),
-    path('single-product', product_details),
-    path('checkout', checkout),
-    path('confirmation',confirmation ),
-    path('cart',cart),
-    path('blog', blog),
-    path('single-blog', single_blog),
-    path('login', login_),
-    path('register', register_),
-    path('tracking-order', tracking_order),
-    path('contact', contact)
+    path('', home, name='home'),
+    path('category', category, name='category'),
+    path('single-product', product_details, name='product_details'),
+    path('checkout', checkout, name='checkout'),
+    path('confirmation',confirmation, name='confirmation' ),
+    path('cart',cart, name='chart'),
+    path('blog', blog, name='blog'),
+    path('single-blog', single_blog, name='single_blog'),
+    path('login', login_, name='login_'),
+    path('register', register_, name='register'),
+    path('tracking-order', tracking_order, name='tracking_order'),
+    path('contact', contact, name='contact')
 
 ]
