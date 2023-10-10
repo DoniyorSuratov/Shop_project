@@ -1,9 +1,12 @@
 from django.db import models
 
-# Create your models here.
+
 class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.FloatField()
     description = models.TextField()
-    image = models.ImageField(upload_to='pics')
 
+
+class Images(models.Model):
+    img = models.ImageField(upload_to='pics')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
