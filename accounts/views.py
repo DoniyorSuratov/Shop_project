@@ -8,6 +8,7 @@ def register(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         confirmPassword = request.POST.get('confirmPassword')
+        print("username:", username)
 
         if password == confirmPassword:
             if User.objects.filter(email=email).exists():
