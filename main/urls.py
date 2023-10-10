@@ -7,8 +7,6 @@ from  .views import (home,
                      cart,
                      blog,
                      single_blog,
-                     login_,
-                     register_,
                      tracking_order,
                      contact)
 
@@ -21,8 +19,6 @@ urlpatterns=[
     path('cart',cart, name='chart'),
     path('blog', blog, name='blog'),
     path('single-blog', single_blog, name='single_blog'),
-    path('login', login_, name='login_'),
-    path('register', register_, name='register'),
     path('tracking-order', tracking_order, name='tracking_order'),
     path('contact', contact, name='contact')
 

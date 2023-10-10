@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import get_user_model, hashers
+from django.contrib.auth import get_user_model, hashers, authenticate, login
 User = get_user_model()
 
 def register(request):
@@ -32,5 +32,17 @@ def register(request):
 
 
 
-def login(request):
+def sign_in(request):
+    if request.method == "POST":
+        username = request.POST.get('name')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            print('Invalid username or pasword')
+            return redirect('/accounts/login')
     return render(request, 'login.html')

@@ -59,12 +59,6 @@ def single_blog(request):
     return render(request, 'single-blog.html')
 
 
-def login_(request):
-    return render(request, 'login.html')
-
-
-def register_(request):
-    return render(request, 'register.html')
 
 
 def tracking_order(request):
