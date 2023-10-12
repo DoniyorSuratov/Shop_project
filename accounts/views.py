@@ -1,21 +1,27 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import get_user_model, hashers, authenticate, login
+from django.contrib.auth import get_user_model, hashers, authenticate, login, logout
+from django.views import View
+from django.contrib import messages
 User = get_user_model()
 
-def register(request):
-    if request.method == 'POST':
+class RegisterView(View):
+    template_name = 'register.html'
+    context = {}
+    def get(self, request):
+        return render(request, self.template_name, self.context)
+
+    def post(self, request):
         username = request.POST.get('name')
         email = request.POST.get('email')
         password = request.POST.get('password')
         confirmPassword = request.POST.get('confirmPassword')
-        print("username:", username)
 
         if password == confirmPassword:
             if User.objects.filter(email=email).exists():
-                print("Email already exists!")
+                messages.error(request, "Email already exists!")
                 return redirect('/accounts/register')
             if User.objects.filter(username=username).exists():
-                print("Username already exists!")
+                messages.error(request, "Username already exists!")
                 return redirect('/accounts/register')
             else:
                 user = User.objects.create(
@@ -26,14 +32,16 @@ def register(request):
                 user.save()
                 return redirect('/accounts/login')
         else:
-            print("Passwords are not common! ")
+            messages.error(request, "Passwords are not common! ")
             return redirect('accounts/register')
-    return render(request, 'register.html')
 
+class LoginView(View):
+    template_name = 'login.html'
+    context = {}
+    def get(self, request):
+        return render(request, self.template_name, self.context)
 
-
-def sign_in(request):
-    if request.method == "POST":
+    def post(self, request):
         username = request.POST.get('name')
         password = request.POST.get('password')
 
@@ -43,6 +51,11 @@ def sign_in(request):
             login(request, user)
             return redirect('/')
         else:
-            print('Invalid username or pasword')
+            messages.error(request, 'Invalid username or pasword')
             return redirect('/accounts/login')
-    return render(request, 'login.html')
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect('/accounts/login')
+

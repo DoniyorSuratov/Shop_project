@@ -54,14 +54,14 @@
                   <li class="nav-item"><a class="nav-link" href="/single-blog">Blog Details</a></li>
                 </ul>
 							</li>
+
+
+
+
 							<li class="nav-item submenu dropdown">
+
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                  aria-expanded="false">Pages</a>
-                <ul class="dropdown-menu">
-                  <li class="nav-item"><a class="nav-link" href="/accounts/login">Login</a></li>
-                  <li class="nav-item"><a class="nav-link" href="/accounts/register">Register</a></li>
-                  <li class="nav-item"><a class="nav-link" href="/tracking-order">Tracking</a></li>
-                </ul>
+                  aria-expanded="false">Tracking</a>
               </li>
               <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
             </ul>
@@ -73,7 +73,12 @@
               <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button> </li>
               <li class="nav-item">
                   <a class="button button-header" href="#">Buy Now</a>
-                  <a class="button button-header" href="#">{{ user.username }}</a>
+                  {%  if user.is_authenticated %}
+                      <li class="nav-item"><a class="nav-link" href="#">{{ user.username }}</a></li>
+                      <li class="nav-item"><a class="nav-link" href="/accounts/logout">Log out</a></li>
+                  {% else %}
+                  <li class="nav-item"><a class="nav-link" href="/accounts/login">Login</a></li>
+                  {% endif %}
 
               </li>
             </ul>
