@@ -1,25 +1,39 @@
 from django.urls import path
-from  .views import (home,
-                     category,
-                     product_details,
-                     checkout,
+from django.views.decorators.csrf import csrf_exempt
+from  .views import (HomeView,
+                     CategoryView,
+                     ProductDetailView,
+                     ShoppingCartView,
+                     CheckoutView,
                      confirmation,
-                     cart,
-                     blog,
+                     BlogView,
                      single_blog,
-                     tracking_order,
-                     contact)
+                     ShoppingHistoryView,
+                     IncrementCountAPIView,
+                     DecrementCountAPIView,
+                     ChangeCountAPIView,
+                     AddPhotosView
+                     )
 
 urlpatterns=[
-    path('', home, name='home'),
-    path('category', category, name='category'),
-    path('single-product', product_details, name='product_details'),
-    path('checkout', checkout, name='checkout'),
+    path('', HomeView.as_view(), name='home'),
+    path('category', CategoryView.as_view(), name='category'),
+    path('single-product', ProductDetailView.as_view(), name='product_details'),
+    path('checkout', CheckoutView.as_view(), name='checkout'),
     path('confirmation',confirmation, name='confirmation' ),
-    path('cart',cart, name='chart'),
-    path('blog', blog, name='blog'),
+    path('cart',ShoppingCartView.as_view(), name='chart'),
+    path('blog', BlogView.as_view(), name='blog'),
     path('single-blog', single_blog, name='single_blog'),
-    path('tracking-order', tracking_order, name='tracking_order'),
-    path('contact', contact, name='contact')
+    path('shopping-history', ShoppingHistoryView.as_view(), name='shopping-history'),
+    path('add-photos', AddPhotosView.as_view(), name='add-photos'),
+
+
+
+
+
+    #API
+    path('increment', csrf_exempt(IncrementCountAPIView.as_view()), name='increment'),
+    path('decrement', csrf_exempt(DecrementCountAPIView.as_view()), name='decrement'),
+    path('change', csrf_exempt(ChangeCountAPIView.as_view()), name='change'),
 
 ]

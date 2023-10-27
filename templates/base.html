@@ -41,9 +41,8 @@
                 <ul class="dropdown-menu">
                   <li class="nav-item"><a class="nav-link" href="/category">Shop Category</a></li>
                   <li class="nav-item"><a class="nav-link" href="/single-product">Product Details</a></li>
-                  <li class="nav-item"><a class="nav-link" href="/checkout">Product Checkout</a></li>
-                  <li class="nav-item"><a class="nav-link" href="/confirmation">Confirmation</a></li>
                   <li class="nav-item"><a class="nav-link" href="/cart">Shopping Cart</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/shopping-history">Shopping History</a></li>
                 </ul>
 							</li>
               <li class="nav-item submenu dropdown">
@@ -52,30 +51,29 @@
                 <ul class="dropdown-menu">
                   <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
                   <li class="nav-item"><a class="nav-link" href="/single-blog">Blog Details</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/add-photos">Add Photos</a></li>
                 </ul>
 							</li>
-
-
-
-
-							<li class="nav-item submenu dropdown">
-
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                  aria-expanded="false">Tracking</a>
-              </li>
               <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+
             </ul>
 
             <ul class="nav-shop">
               <li
                       class="nav-item"><button><i class="ti-search"></i></button>
               </li>
-              <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button> </li>
+             <a href="/cart"> <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle"></span></button> </li></a>
               <li class="nav-item">
-                  <a class="button button-header" href="#">Buy Now</a>
+
+                {% if user.is_authenticated %}
+                  <a class="button button-header" href="/category">Buy Now</a>
+              {% else %}
+                    <a class="button button-header" href="/accounts/login">Buy Now</a>
+              {% endif %}
                   {%  if user.is_authenticated %}
                       <li class="nav-item"><a class="nav-link" href="#">{{ user.username }}</a></li>
                       <li class="nav-item"><a class="nav-link" href="/accounts/logout">Log out</a></li>
+
                   {% else %}
                   <li class="nav-item"><a class="nav-link" href="/accounts/login">Login</a></li>
                   {% endif %}
@@ -117,12 +115,11 @@
 						<div class="single-footer-widget tp_widgets">
 							<h4 class="footer_title">Quick Links</h4>
 							<ul class="list">
-								<li><a href="#">Home</a></li>
-								<li><a href="#">Shop</a></li>
-								<li><a href="#">Blog</a></li>
-								<li><a href="#">Product</a></li>
-								<li><a href="#">Brand</a></li>
-								<li><a href="#">Contact</a></li>
+								<li><a href="/">Home</a></li>
+								<li><a href="/shop">Shop</a></li>
+								<li><a href="/blog">Blog</a></li>
+								<li><a href="/product">Product</a></li>
+								<li><a href="/contact">Contact</a></li>
 							</ul>
 						</div>
 					</div>
@@ -147,15 +144,15 @@
 									<span class="fa fa-location-arrow"></span>
 									Head Office
 								</p>
-								<p>123, Main Street, Your City</p>
+								<p>1, Moykorghon street, Tashkent City</p>
 
 								<p class="sm-head">
 									<span class="fa fa-phone"></span>
 									Phone Number
 								</p>
 								<p>
-									+123 456 7890 <br>
-									+123 456 7890
+									+998 97 9007547 <br>
+									+998 97 9007547
 								</p>
 
 								<p class="sm-head">
@@ -163,8 +160,8 @@
 									Email
 								</p>
 								<p>
-									free@infoexample.com <br>
-									www.infoexample.com
+									doniyorsuratov@gmail.com <br>
+									doniyorsuratov@gmail.com
 								</p>
 							</div>
 						</div>

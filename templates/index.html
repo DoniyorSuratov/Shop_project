@@ -45,8 +45,17 @@
       <div class="owl-carousel owl-theme hero-carousel">
           {% for product in products3 %}
         <div class="hero-carousel__slide">
+
           <img src="{{ product.image.img.url }}" alt="" class="img-fluid">
           <a href="#" class="hero-carousel__slideOverlay">
+              <li>
+                  <form method="post">
+                         {% csrf_token %}
+                         <input type="hidden" name="product_id" value="{{ product.id }}">
+                         <li><button type="submit"><i class="ti-shopping-cart"></i></button></li>
+                  </form>
+              </li>
+
             <h3>{{ product.name }}</h3>
             <p>{{ product.description }}</p>
           </a>
@@ -65,13 +74,28 @@
         </div>
         <div class="row">
             {% for product in products %}
-          <div class="col-md-6 col-lg-4 col-xl-3">
+          <div class="col-md-6 col-lg-4 col-xl-3" id="product_{{ product.id }}">
             <div class="card text-center card-product">
               <div class="card-product__img">
                 <img class="card-img" src="{{ product.image.img.url }}" alt="">
                 <ul class="card-product__imgOverlay">
                   <li><button><i class="ti-search"></i></button></li>
-                  <li><button><i class="ti-shopping-cart"></i></button></li>
+                    {% if user.is_authenticated %}
+                        {% if not product.count <= 0 %}
+                     <li><form method="post">
+                         {% csrf_token %}
+                         <input type="hidden" name="product_id" value="{{ product.id }}">
+                         <li><button type="submit"><i class="ti-shopping-cart"></i></button></li>
+                     </form></li>
+                            {% else %}
+                            <p>No in Stock</p>
+                            {% endif %}
+                    {% else %}
+                        <li><button type="submit"><i class="ti-shopping-cart"><a href="/accounts/login"></a></i></button></li>
+                    {% endif %}
+
+
+
                   <li><button><i class="ti-heart"></i></button></li>
                 </ul>
               </div>
@@ -122,7 +146,23 @@
               <img class="img-fluid" src="{{ product.image.img.url }}" alt="">
               <ul class="card-product__imgOverlay">
                 <li><button><i class="ti-search"></i></button></li>
-                <li><button><i class="ti-shopping-cart"></i></button></li>
+
+
+                 {% if user.is_authenticated %}
+                        {% if not product.count <= 0 %}
+                     <li><form method="post">
+                         {% csrf_token %}
+                         <input type="hidden" name="product_id" value="{{ product.id }}">
+                         <li><button type="submit"><i class="ti-shopping-cart"></i></button></li>
+                     </form></li>
+                            {% else %}
+                            <p>No in Stock</p>
+                            {% endif %}
+                    {% else %}
+                        <li><button type="submit"><i class="ti-shopping-cart"><a href="/accounts/login"></a></i></button></li>
+                    {% endif %}
+
+
                 <li><button><i class="ti-heart"></i></button></li>
               </ul>
             </div>

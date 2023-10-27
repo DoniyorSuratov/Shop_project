@@ -33,7 +33,7 @@ class RegisterView(View):
                 return redirect('/accounts/login')
         else:
             messages.error(request, "Passwords are not common! ")
-            return redirect('accounts/register')
+            return redirect('/accounts/register')
 
 class LoginView(View):
     template_name = 'login.html'
@@ -58,4 +58,6 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect('/accounts/login')
+
+
 
