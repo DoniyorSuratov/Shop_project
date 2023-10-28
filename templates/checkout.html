@@ -52,7 +52,7 @@
                             <span class="placeholder" data-placeholder="First name" ></span>
                         </div>
                         <div class="col-md-6 form-group p_star">
-                            <input type="text" class="form-control" id="lastname" name="name"placeholder="Last name">
+                            <input type="text" class="form-control" id="lastname" name="lastname"placeholder="Last name">
                             <span class="placeholder" data-placeholder="Last name"></span>
                         </div>
                         <div class="col-md-12 form-group">
@@ -68,9 +68,9 @@
                         </div>
                         <div class="col-md-12 form-group p_star">
                             <select class="country_select">
-                                <option value="1">Uzbekistan</option>
-                                <option value="2">USA</option>
-                                <option value="4">England</option>
+                                <option value="1" name="uzbekistan">Uzbekistan</option>
+                                <option value="2" name="usa">USA</option>
+                                <option value="4" name="">England</option>
                             </select>
                         </div>
                         <div class="col-md-12 form-group p_star">
@@ -120,7 +120,7 @@
                             </div>
                             <textarea class="form-control" name="details" id="message" rows="1" placeholder="Order Notes"></textarea>
                         </div>
-
+                    </form>
                 </div>
 
                 <div class="col-lg-4">
@@ -128,7 +128,7 @@
                         <h2>Your Order</h2>
                     <ul class="list">
 
-                            <li><a href="#"><h4>Product <span>Total</span></h4></a></li>
+                        <li><a href="#"><h4>Product <span>Total</span></h4></a></li>
                             {% for product in shoping_cart_products_data %}
                             <li><a href="#">{{ product.name }} <span class="middle">x {{ product.count }}</span> <span class="last">${% calculate_total product.count product.price %}</span></a></li>
                             {% endfor %}

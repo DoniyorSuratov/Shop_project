@@ -7,7 +7,8 @@ from .models import (Product,
                      ShoppingHistory,
                      DeliveryAddresOfUser,
                      UserBlogComments,
-                     BlogPhotos)
+                     BlogPhotos,
+                     Comments)
 from django.db.models import Q
 from django.contrib import messages
 from django.http.response import JsonResponse
@@ -180,7 +181,7 @@ class CheckoutView(View):
             name = product.product.name
             count = product.count
             price = product.product.price
-            summa = (float(price) * count)
+            summa = (float(price) * product.count)
             summa = round(summa,2)
             shipping = 50
             total=summa+shipping
@@ -279,7 +280,7 @@ class ShoppingHistoryView(View):
 
 
     def post(self, request):
-        data = request.data['']
+        # data = request.data['']
         products = ShoppingCart.objects.select_related('product').filter(user=request.user)
 
         for product in products:
@@ -414,3 +415,47 @@ class UserAddresView(View):
         )
         user.save()
         return redirect('/confirmation')
+
+
+class SingleBlogView(View):
+    template_name='single-blog.html'
+    context ={}
+
+    def get(self, request):
+        user_post = UserBlogComments.objects.all().order_by('-date')[:1]
+        post_data=[]
+        for posts in user_post:
+            image = BlogPhotos.objects.filter(author_id=posts).first()
+            posts.image = image
+            post_data.append(posts)
+        self.context.update({'post_data': post_data})
+
+        user_post2 = UserBlogComments.objects.all().order_by('-date')[:3]
+        post_data2 = []
+        for posts in user_post2:
+            image = BlogPhotos.objects.filter(author_id=posts).first()
+            posts.image = image
+            post_data2.append(posts)
+        self.context.update({'post_data2': post_data2})
+
+        comments = Comments.objects. select_related('user').all()
+
+        self.context.update({'comments':comments})
+
+
+        return render(request, self.template_name, self.context)
+
+    def post(self, request):
+
+        email = request.POST.get('email')
+        title = request.POST.get('subject')
+        comment = request.POST.get('message')
+
+        comments = Comments.objects.create(
+            user=request.user,
+            email=email,
+            title=title,
+            comment=comment
+        )
+        comments.save()
+        return redirect('/single-blog')

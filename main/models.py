@@ -64,7 +64,6 @@ class ShoppingHistory(models.Model):
 
 class DeliveryAddresOfUser(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
-    order=models.ForeignKey(ShoppingHistory, on_delete=models.CASCADE)
     name=models.CharField(max_length=100)
     lastname=models.CharField(max_length=100)
     CompanyName=models.CharField(max_length=150)
@@ -80,6 +79,10 @@ class DeliveryAddresOfUser(models.Model):
     date=models.DateTimeField(auto_now_add=True)
 
 
+    def __str__(self):
+        return f'{self.user.name}'
+
+
 class UserBlogComments(models.Model):
     title = models.CharField(max_length=100)
     comment = models.CharField(max_length=250)
@@ -92,3 +95,10 @@ class BlogPhotos(models.Model):
     photo = models.ImageField(upload_to='blog_img')
     author = models.ForeignKey(UserBlogComments, on_delete=models.CASCADE, blank=True, null=True)
 
+
+class Comments(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    email = models.EmailField(max_length=100)
+    title = models.CharField(max_length=250)
+    comment = models.TextField(max_length=500)
+    date = models.DateTimeField(auto_now_add=True)

@@ -114,13 +114,11 @@
                               <td>
                                   <div class="cupon_text d-flex align-items-center">
                                       <input type="text" placeholder="Coupon Code">
-                                  {% for product in shopping_cart_products %}
-                                      {% if not product.id %}
-                                      <a class="primary-btn" href="/category">Apply</a>
-                                      {% else %}
+{#                                  {% for product in shopping_cart_products %}#}
+{#                                      {% if product.id %}#}
                                       <a class="primary-btn" href="/checkout">Apply</a>
-                                      {% endif %}
-                                  {% endfor %}
+{#                                      {% endif %}#}
+{#                                  {% endfor %}#}
                                       <a class="button" href="#">Have a Coupon?</a>
                                   </div>
                               </td>
@@ -146,13 +144,6 @@
                               <td>
                                   <div class="checkout_btn_inner d-flex align-items-center">
                                       <a class="gray_btn" href="/category">Continue Shopping</a>
-                                      {% for product in shopping_cart_products %}
-                                      {% if not product.id %}
-                                      <a class="primary-btn ml-2" href="/checkout">Proceed to checkout</a>
-                                      {% else %}
-                                      <a class="primary-btn ml-2" href="/checkout">Proceed to checkout</a>
-                                          {% endif %}
-                                      {% endfor %}
 
                                   </div>
                               </td>
